@@ -14,7 +14,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     @Query(value = "SELECT * FROM questions WHERE module_id=?1 AND mock_no=?2", nativeQuery = true)
     List<Question> findMockQuestions(Long moduleId, int mockNo);
     
-    @Query(value = "SELECT * FROM questions WHERE module_id=?1 ORDER BY RAND() LIMIT 20", nativeQuery = true)
+    @Query(value = "SELECT * FROM questions WHERE module_id=?1 ORDER BY RANDOM() LIMIT 20", nativeQuery = true)
     List<Question> findRandomQuestions(Long moduleId);
 
     @Query(value = "SELECT * FROM questions WHERE module_id=?1 LIMIT 5", nativeQuery = true)
