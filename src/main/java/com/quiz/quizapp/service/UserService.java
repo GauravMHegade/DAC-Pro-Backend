@@ -40,12 +40,18 @@ public class UserService {
         return repo.save(user);
     }
 
+
+
     public ResponseEntity<?> login(String email, String password) {
 
         User user = repo.findByEmail(email);
 
-        if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
-            return ResponseEntity.status(401).body("Invalid credentials");
+        if (user == null) {
+            return ResponseEntity.status(404).body("Invalid email address");
+        }
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            return ResponseEntity.status(401).body("Incorrect password");
         }
 
         String token = jwtService.generateToken(user);
